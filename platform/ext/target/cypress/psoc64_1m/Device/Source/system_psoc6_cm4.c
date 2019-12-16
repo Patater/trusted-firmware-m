@@ -508,15 +508,7 @@ void Cy_Platform_Init(void)
 
     (void)NS_DRIVER_STDIO.Initialize(NULL);
     NS_DRIVER_STDIO.Control(ARM_USART_MODE_ASYNCHRONOUS, 115200);
-
 #if !defined(CY_IPC_DEFAULT_CFG_DISABLE)
-#ifdef __CM0P_PRESENT
-    /* Allocate and initialize semaphores for the system operations. */
-    static uint32_t ipcSemaArray[CY_IPC_SEMA_COUNT / CY_IPC_SEMA_PER_WORD];
-    (void) Cy_IPC_Sema_Init(CY_IPC_CHAN_SEMA, CY_IPC_SEMA_COUNT, ipcSemaArray);
-#else
-    (void) Cy_IPC_Sema_Init(CY_IPC_CHAN_SEMA, 0ul, NULL);
-#endif /* __CM0P_PRESENT */
 
 #if !defined(CY_FLASH_RWW_DRV_SUPPORT_DISABLED)
     /********************************************************************************
