@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018-2019, Arm Limited. All rights reserved.
+ * Copyright (c) 2018-2020, Arm Limited. All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
  *
@@ -41,8 +41,8 @@ static void test_task_runner(void *arg)
     /* Release the semaphore to unblock the parent thread */
     os_wrapper_semaphore_release(test_semaphore);
 
-    /* Signal to the RTOS that the thread is finished */
-    os_wrapper_thread_exit();
+    /* Suspend the current thread */
+    os_wrapper_current_thread_suspend();
 }
 
 void tfm_sst_run_test(const char *thread_name, struct test_result_t *ret,
@@ -96,4 +96,11 @@ void tfm_sst_run_test(const char *thread_name, struct test_result_t *ret,
     os_wrapper_semaphore_release(test_semaphore);
 
     os_wrapper_semaphore_delete(test_semaphore);
+
+    /* Terminate the child thread */
+    err = os_wrapper_thread_terminate(thread);
+    if (err == OS_WRAPPER_ERROR) {
+        TEST_FAIL("Failed to terminate the child thread");
+        return;
+    }
 }
