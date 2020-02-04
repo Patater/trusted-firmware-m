@@ -33,12 +33,6 @@ typedef void (*os_wrapper_thread_func) (void *argument);
 void *os_wrapper_thread_new(const char *name, int32_t stack_size,
                             os_wrapper_thread_func func, void *arg,
                             uint32_t priority);
-/**
- * \brief Gets current thread handle
- *
- * \return Returns the thread handle, or NULL in case of error
- */
-void *os_wrapper_thread_get_handle(void);
 
 /**
  * \brief Gets thread priority
@@ -50,6 +44,16 @@ void *os_wrapper_thread_get_handle(void);
  *                 in case of error
  */
 uint32_t os_wrapper_thread_get_priority(void *handle, uint32_t *priority);
+
+/**
+ * \brief Gets the current thread priority
+ *
+ * \param[out] priority   The priority of the thread
+ *
+ * \return Returns \ref OS_WRAPPER_SUCCESS on success, or \ref OS_WRAPPER_ERROR
+ *                 in case of error
+ */
+uint32_t os_wrapper_current_thread_get_priority(uint32_t *priority);
 
 /**
  * \brief Terminate the thread and free any resources used by it

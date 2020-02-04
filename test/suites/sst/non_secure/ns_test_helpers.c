@@ -48,7 +48,6 @@ static void test_task_runner(void *arg)
 void tfm_sst_run_test(const char *thread_name, struct test_result_t *ret,
                       test_func_t *test_func)
 {
-    void *current_thread_handle;
     uint32_t current_thread_priority;
     uint32_t err;
     void *thread;
@@ -61,15 +60,7 @@ void tfm_sst_run_test(const char *thread_name, struct test_result_t *ret,
         return;
     }
 
-    current_thread_handle = os_wrapper_thread_get_handle();
-    if (!current_thread_handle) {
-        os_wrapper_semaphore_delete(test_semaphore);
-        TEST_FAIL("Failed to get current thread ID");
-        return;
-    }
-
-    err = os_wrapper_thread_get_priority(current_thread_handle,
-                                         &current_thread_priority);
+    err = os_wrapper_current_thread_get_priority(&current_thread_priority);
     if (err == OS_WRAPPER_ERROR) {
         os_wrapper_semaphore_delete(test_semaphore);
         TEST_FAIL("Failed to get current thread priority");
