@@ -53,17 +53,16 @@ void tfm_sst_run_test(const char *thread_name, struct test_result_t *ret,
     void *thread;
     struct test_task_t test_task = { .func = test_func, .ret = ret };
 
+    err = os_wrapper_current_thread_get_priority(&current_thread_priority);
+    if (err == OS_WRAPPER_ERROR) {
+        TEST_FAIL("Failed to get current thread priority");
+        return;
+    }
+
     /* Create a binary semaphore with initial count of 0 tokens available */
     test_semaphore = os_wrapper_semaphore_create(1, 0, "sst_tests_sema");
     if (!test_semaphore) {
         TEST_FAIL("Semaphore creation failed");
-        return;
-    }
-
-    err = os_wrapper_current_thread_get_priority(&current_thread_priority);
-    if (err == OS_WRAPPER_ERROR) {
-        os_wrapper_semaphore_delete(test_semaphore);
-        TEST_FAIL("Failed to get current thread priority");
         return;
     }
 
