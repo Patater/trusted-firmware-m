@@ -32,7 +32,7 @@ int32_t tfm_ns_interface_dispatch(veneer_fn fn,
 
     result = fn(arg0, arg1, arg2, arg3);
 
-    status = OsMutexRelease(ns_lock_handle);
+    status = osMutexRelease(ns_lock_handle);
     if (status != osOK) {
         return (int32_t)TFM_ERROR_GENERIC;
     }
