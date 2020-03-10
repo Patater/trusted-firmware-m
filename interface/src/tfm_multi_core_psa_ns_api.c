@@ -8,8 +8,6 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#include "os_wrapper/mutex.h"
-
 #include "psa/client.h"
 #include "psa/error.h"
 #include "tfm_api.h"
