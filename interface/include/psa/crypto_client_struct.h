@@ -35,6 +35,7 @@ struct psa_client_key_attributes_s
     uint32_t lifetime;
     uint32_t id;
     uint32_t alg;
+    uint32_t alg2;
     uint32_t usage;
     uint16_t bits;
 };
