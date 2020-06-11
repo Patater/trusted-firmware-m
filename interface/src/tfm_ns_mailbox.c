@@ -7,7 +7,6 @@
 
 #include <string.h>
 #include "tfm_ns_mailbox.h"
-#include "tfm_plat_ns.h"
 
 /* The pointer to NSPE mailbox queue */
 static struct ns_mailbox_queue_t *mailbox_queue_ptr = NULL;
