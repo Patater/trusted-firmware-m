@@ -80,7 +80,7 @@ static inline void psa_set_key_enrollment_algorithm(
     psa_key_attributes_t *attributes,
     psa_algorithm_t alg2)
 {
-    attributes->core.policy.alg2 = alg2;
+    attributes->alg2 = alg2;
 }
 
 #ifdef __cplusplus
