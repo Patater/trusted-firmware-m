@@ -83,6 +83,18 @@ static inline void psa_set_key_enrollment_algorithm(
     attributes->alg2 = alg2;
 }
 
+/** Retrieve the enrollment algorithm policy from key attributes.
+ *
+ * \param[in] attributes        The key attribute structure to query.
+ *
+ * \return The enrollment algorithm stored in the attribute structure.
+ */
+static inline psa_algorithm_t psa_get_key_enrollment_algorithm(
+    const psa_key_attributes_t *attributes)
+{
+    return attributes->alg2;
+}
+
 #ifdef __cplusplus
 }
 #endif

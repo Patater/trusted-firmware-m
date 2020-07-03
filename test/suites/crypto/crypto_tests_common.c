@@ -881,6 +881,46 @@ void psa_policy_key_interface_test(struct test_result_t *ret)
     ret->val = TEST_PASSED;
 }
 
+void psa_enrollment_algorithm_interface_test(struct test_result_t *ret)
+{
+    psa_algorithm_t alg = PSA_ALG_ECDH;
+    psa_algorithm_t alg_out;
+    psa_algorithm_t alg2 = PSA_ALG_ECDSA_ANY;
+    psa_algorithm_t alg2_out;
+    psa_key_attributes_t key_attributes = psa_key_attributes_init();
+    psa_key_usage_t usage = PSA_KEY_USAGE_DERIVE | PSA_KEY_USAGE_SIGN_HASH |
+        PSA_KEY_USAGE_VERIFY_HASH;
+    psa_key_usage_t usage_out;
+
+    /* Set the key policy values */
+    psa_set_key_usage_flags(&key_attributes, usage);
+    psa_set_key_algorithm(&key_attributes, alg);
+    psa_set_key_enrollment_algorithm(&key_attributes, alg);
+
+    /* Check that the key policy has the correct usage */
+    usage_out = psa_get_key_usage_flags(&key_attributes);
+    if (usage_out != usage) {
+        TEST_FAIL("Unexpected usage value");
+        return;
+    }
+
+    /* Check that the key policy has the correct algorithm */
+    alg_out = psa_get_key_algorithm(&key_attributes);
+    if (alg_out != alg) {
+        TEST_FAIL("Unexpected algorithm value");
+        return;
+    }
+
+    /* Check that the key policy has the correct enrollment algorithm */
+    alg2_out = psa_get_key_enrollment_algorithm(&key_attributes);
+    if (alg2_out != alg2) {
+        TEST_FAIL("Unexpected enrollment algorithm value");
+        return;
+    }
+
+    ret->val = TEST_PASSED;
+}
+
 void psa_policy_invalid_policy_usage_test(struct test_result_t *ret)
 {
     psa_status_t status;
