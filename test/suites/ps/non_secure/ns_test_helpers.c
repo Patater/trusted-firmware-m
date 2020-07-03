@@ -56,7 +56,7 @@ void tfm_ps_run_test(const char *thread_name, struct test_result_t *ret,
     osThreadAttr_t task_attribs = {
         .tz_module = 1,
         .name = thread_name,
-        .stack_size = SST_TEST_TASK_STACK_SIZE,
+        .stack_size = PS_TEST_TASK_STACK_SIZE,
     };
 
     /* Create a binary semaphore with initial count of 0 tokens available */
